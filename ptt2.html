@@ -1,0 +1,57 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+var string = new Array();
+for(i=0; i<string.length; i++)
+var string[i] = string.charAt(i);
+
+
+</head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<script type="text/javascript">
+function validateTest(objFrm)
+{
+if(objFrm.string1.value=="")
+	{
+	alert("Please give string 1");
+	objFrm.string1.focus()
+	}
+	else if(objFrm.string2.value=="")
+	{
+	alert("Please give string 2");
+	objFrm.string2.focus()
+	}
+    else
+	{
+	
+	
+	var m = string1.length;
+	var n = string2.length;
+		for(var i=0;i<=m;i++)
+		A
+	
+	for (var i=0; i<=m ; i++)
+	E[i][0]= i;
+	for (var i=0; i<=n ; j++)
+	E[0][j]= j;
+	for (var i=0; i<=m ; i++)
+		for (var i=0; i<=n ; i++)
+		E[i][j]= min(E[i-1][j]+1, E[i][j-1]+1,E[i-1][j-1]+diff(string1.charAt(i-1),string2.charAt(j-1),repcost)) ;
+		
+
+	}
+}
+
+
+</script>
+<title>Untitled Document</title>
+
+<body>
+<form  name = "frmgen" >
+string 1:<input type='text' maxlength = "21" name='string1' /><br>
+string 2:<input type='text' maxlength = "21" name='string2' /><br>
+
+<input type='button' value='submit' onclick="validateTest(document.frmgen);" />
+</form>
+</body>
+</html>
