@@ -1,0 +1,134 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+<script type="text/javascript">
+function validateTest(objFrm)
+{
+if(objFrm.string_1.value=="")
+	{
+	alert("Please give string 1");
+	objFrm.string_1.focus()
+	}
+	else if(objFrm.string_2.value=="")
+	{
+	alert("Please give string 2");
+	objFrm.string_2.focus()
+	}
+    else
+	{
+	var cost = 1;
+	var E = new Array();
+	var s1 = objFrm.string_1.value;
+	var s2 = objFrm.string_2.value;
+	var inc = parseInt(objFrm.in_cost.value);
+	var delc = parseInt(objFrm.del_cost.value);
+	var repc = parseInt(objFrm.rep_cost.value);
+	if(inc>delc)
+		inc=delc;
+	//alert("string 1 "+s1);
+	//alert("string 2 "+s2);
+	var m = s1.length;
+	var n = s2.length;
+		for(var i=0;i<=m;i++){
+		E[i] = new Array();
+	}
+	for(var i=0;i<=m;i++){
+		E[i][0] = i;
+	}
+	for(var i=1;i<=n;i++){
+		E[0][i] = i;
+	}
+	for(var i=1;i<=m;i++){
+		for(var j=1;j<=n;j++)
+			E[i][j] = min(E[i-1][j]+inc, E[i][j-1]+inc, E[i-1][j-1]+diff(s1.charAt(i-1),s2.charAt(j-1),repc));
+	}
+	var st = "<table border = 1><tr>";
+	for(var i=0;i<=m;i++){
+		for(var j=0;j<=n;j++)
+			st = st + "<td>" + E[i][j];
+		var st = st + "</td></tr>";
+	}
+	st = st + "</table>"
+		alert("Cost = " + E[m][n]);
+	
+	var t1="",t2="";
+	while(m>0 && n>0){
+		if(E[m-1][n-1]==min(E[m-1][n-1],E[m][n-1],E[m-1][n])){
+			t1=s1.charAt(m-1)+t1;
+			t2=s2.charAt(n-1)+t2;
+			m--;
+			n--;
+		}else if(E[m][n-1]==min(E[m-1][n-1],E[m][n-1],E[m-1][n])){
+			t1="-"+t1;
+			t2=s2.charAt(n-1)+t2;
+			n--;
+		}else if(E[m-1][n]==min(E[m-1][n-1],E[m][n-1],E[m-1][n])){
+			t2="-"+t2;
+			t1=s1.charAt(m-1)+t1;
+			m--;
+		}
+
+	}
+	if(m>0){
+		while(m>0){
+			t1=s1.charAt(m-1)+t1;
+			t2="-"+t2;
+			m--;
+		}
+	}else if(n>0){
+		while(n>0){
+			t2=s2.charAt(n-1)+t2;
+			t1="-"+t1;
+			n--;
+		}
+	} 
+	st = st+"<br>"+t1;
+	st = st+"<br>"+t2;
+	
+	outp.innerHTML = st;
+	
+	}
+}
+
+function diff(i,j,repc){
+	if(i==j)
+		return 0;
+	else
+		return repc;
+}
+function min(a,b,c){
+	if(a>b){
+		if(b>c)
+		return c;
+		else
+		return b;
+	}
+	else{
+		if(a<c)
+		return a;
+		else
+		return c;
+	}
+}
+</script>
+<title>Programming Tools and Techniques</title>
+
+<body>
+<br><br><br><br><br><br><br><br>
+<hr>
+<div align = "center">
+<form  name = "frmgen" >
+String 1:<input type='text' maxlength = "40" name='string_1' /><br><br>
+String 2:<input type='text' maxlength = "40" name='string_2' /><br><br>
+Insertion cost:<input type='text' maxlength = "40" name='in_cost' /><br><br>
+deletion cost:<input type='text' maxlength = "40" name='del_cost' /><br><br>
+replacement cost:<input type='text' maxlength = "40" name='rep_cost' /><br><br>
+<input type='button' value='Optimal alignment' onclick="validateTest(document.frmgen);" />
+</form>
+<hr>
+</div>
+<div id = "outp">
+</body>
+</html>
